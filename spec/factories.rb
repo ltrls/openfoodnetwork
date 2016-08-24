@@ -113,6 +113,15 @@ FactoryGirl.define do
 
   factory :schedule, class: Schedule do
     sequence(:name) { |n| "Schedule #{n}" }
+    order_cycles { [OrderCycle.first || FactoryGirl.create(:simple_order_cycle)] }
+  end
+
+  factory :standing_order, :class => StandingOrder do
+    schedule
+    customer
+    payment_method
+    shipping_method
+    begins_at { 1.month.ago }
   end
 
   factory :variant_override, :class => VariantOverride do

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160707023818) do
+ActiveRecord::Schema.define(:version => 20160819045727) do
 
   create_table "account_invoices", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -588,9 +588,9 @@ ActiveRecord::Schema.define(:version => 20160707023818) do
     t.string   "email"
     t.text     "special_instructions"
     t.integer  "distributor_id"
+    t.integer  "order_cycle_id"
     t.string   "currency"
     t.string   "last_ip_address"
-    t.integer  "order_cycle_id"
     t.integer  "cart_id"
     t.integer  "customer_id"
   end
@@ -1044,6 +1044,17 @@ ActiveRecord::Schema.define(:version => 20160707023818) do
     t.integer  "zone_members_count", :default => 0
   end
 
+  create_table "standing_orders", :force => true do |t|
+    t.integer  "customer_id",        :null => false
+    t.integer  "schedule_id",        :null => false
+    t.integer  "payment_method_id",  :null => false
+    t.integer  "shipping_method_id", :null => false
+    t.datetime "begins_at"
+    t.datetime "ends_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
   create_table "suburbs", :force => true do |t|
     t.string  "name"
     t.string  "postcode"
@@ -1259,6 +1270,11 @@ ActiveRecord::Schema.define(:version => 20160707023818) do
   add_foreign_key "spree_variants", "spree_products", name: "spree_variants_product_id_fk", column: "product_id"
 
   add_foreign_key "spree_zone_members", "spree_zones", name: "spree_zone_members_zone_id_fk", column: "zone_id"
+
+  add_foreign_key "standing_orders", "customers", name: "oc_standing_orders_customer_id_fk"
+  add_foreign_key "standing_orders", "schedules", name: "oc_standing_orders_schedule_id_fk"
+  add_foreign_key "standing_orders", "spree_payment_methods", name: "oc_standing_orders_payment_method_id_fk", column: "payment_method_id"
+  add_foreign_key "standing_orders", "spree_shipping_methods", name: "oc_standing_orders_shipping_method_id_fk", column: "shipping_method_id"
 
   add_foreign_key "suburbs", "spree_states", name: "suburbs_state_id_fk", column: "state_id"
 
