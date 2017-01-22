@@ -28,6 +28,8 @@ fr:
   producers_join: Les producteurs et autres hubs basés en France sont invités à rejoindre Open Food France.
   charges_sales_tax: Soumis à la TVA?
   print_invoice: "Imprimer la facture"
+  print_ticket: "Imprimer le ticket"
+  select_ticket_printer: "Choisir l'imprimante à tickets"
   send_invoice: "Envoyer la facture"
   resend_confirmation: "Renvoyer la confirmation"
   view_order: "Voir la commande"
