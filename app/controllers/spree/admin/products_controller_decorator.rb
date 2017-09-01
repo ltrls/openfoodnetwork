@@ -1,13 +1,16 @@
 require 'open_food_network/spree_api_key_loader'
 require 'open_food_network/referer_parser'
+require 'open_food_network/decimal_filter'
 
 Spree::Admin::ProductsController.class_eval do
   include OpenFoodNetwork::SpreeApiKeyLoader
   include OrderCyclesHelper
+  extend OpenFoodNetwork::DecimalFilter
   before_filter :load_form_data, :only => [:bulk_edit, :new, :create, :edit, :update]
   before_filter :load_spree_api_key, :only => [:bulk_edit, :variant_overrides]
   before_filter :strip_new_properties, only: [:create, :update]
 
+  decimal_filter_for :product, attributes: [:price, :group_buy_unit_size, :unit_value]
 
   respond_to :json, :only => :clone
 
